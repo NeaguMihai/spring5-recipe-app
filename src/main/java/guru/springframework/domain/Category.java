@@ -19,7 +19,7 @@ public class Category {
     private Long id;
     private String description;
 
-    @ManyToMany(mappedBy = "categories")
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "categories")
     private Set<Recipe> recipes;
 
 }
