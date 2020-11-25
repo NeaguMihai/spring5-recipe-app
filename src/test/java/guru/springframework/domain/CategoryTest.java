@@ -17,21 +17,21 @@ public class CategoryTest {
         category = new Category();
     }
 
-    @Test
-    public void getId() throws Exception {
-        Long idValue = 4L;
-
-        category.setId(idValue);
-
-        assertEquals(idValue, category.getId());
-    }
-
-    @Test
-    public void getDescription() throws Exception {
-    }
-
-    @Test
-    public void getRecipes() throws Exception {
-    }
+//    @Test
+//    public void getId() throws Exception {
+//        Long idValue = 4L;
+//
+//        category.setId(idValue);
+//
+//        assertEquals(idValue, category.getId());
+//    }
+//
+//    @Test
+//    public void getDescription() throws Exception {
+//    }
+//
+//    @Test
+//    public void getRecipes() throws Exception {
+//    }
 
 }
