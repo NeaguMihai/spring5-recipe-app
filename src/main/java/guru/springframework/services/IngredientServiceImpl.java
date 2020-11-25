@@ -10,6 +10,7 @@ import guru.springframework.converters.IngredientCommandToIngredient;
 import guru.springframework.converters.IngredientToIngredientCommand;
 import guru.springframework.domain.Ingredient;
 import guru.springframework.domain.Recipe;
+import guru.springframework.exception.NotFoundException;
 import guru.springframework.repositories.RecipeRepository;
 import guru.springframework.repositories.UnitOfMeasureRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -42,7 +43,7 @@ public class IngredientServiceImpl implements IngredientService{
 		Optional<Recipe> recipeOptional = recipeRepository.findById(recipeId);
 		
 		if(!recipeOptional.isPresent()) {
-			log.error("Recipe id not found: " + recipeId);
+			throw new NotFoundException("Recipe Not Found! For id= " + recipeId);
 		}
 		
 		Recipe recipe = recipeOptional.get();
@@ -51,7 +52,7 @@ public class IngredientServiceImpl implements IngredientService{
 				.filter(ingredient -> ingredient.getId().equals(ingredientId))
 				.map(ingredient -> ingredientToIngredientCommand.convert(ingredient)).findFirst();
 		if(!ingredientCommandOptional.isPresent()) {
-			log.error("Ingredient is not fownd: " + ingredientId);
+			throw new NotFoundException("Recipe Not Found! For id= " + ingredientId);
 		}
 		
 		return ingredientCommandOptional.get();
@@ -138,7 +139,7 @@ public class IngredientServiceImpl implements IngredientService{
 				recipeRepository.save(recipe);
 			}
 		} else {
-			log.debug("Recipe Id Not found, id: " + recipeId);
+			throw new NotFoundException("Recipe Not Found! For id= " + recipeId);
 		}
 		
 	}

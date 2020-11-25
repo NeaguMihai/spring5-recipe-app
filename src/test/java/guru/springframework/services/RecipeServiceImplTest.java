@@ -4,9 +4,11 @@ package guru.springframework.services;
 import guru.springframework.converters.RecipeCommandToRecipe;
 import guru.springframework.converters.RecipeToRecipeCommand;
 import guru.springframework.domain.Recipe;
+import guru.springframework.exception.NotFoundException;
 import guru.springframework.repositories.RecipeRepository;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -54,6 +56,15 @@ public class RecipeServiceImplTest {
         assertNotNull("Null recipe returned", recipeReturned);
         verify(recipeRepository, times(1)).findById(anyLong());
         verify(recipeRepository, never()).findAll();
+    }
+    
+    @Test(expected = NotFoundException.class)
+    public void getRecipeByIdTestNotFoundException() {
+    	Optional<Recipe> recipeOptional = Optional.empty();
+    	
+    	when(recipeRepository.findById(ArgumentMatchers.anyLong())).thenReturn(recipeOptional);
+    	
+    	Optional<Recipe> recipeReturned = recipeRepository.findById(1L);
     }
 
     @Test
